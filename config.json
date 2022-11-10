@@ -2,7 +2,8 @@
     "name":"Mirela Sato",
     "job":"Front-end developer",
     "github":"mirelasato",
-    "playlist":{
+    "banner":"https://images.unsplash.com/photo-1463043254199-7a3efd782ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80",
+    "playlists":{
         "jogos": [
             {
               "title": "Frostpunk - Neve e Steak tartare",

@@ -1,99 +1,102 @@
-import config from "../config.json";
+import React from "react";
 import styled from "styled-components";
+import config from "../config.json";
 import { CSSReset } from "../src/components/CSSReset";
-import Menu from '../src/components/Menu';
-import { StyledTimeline } from '../src/components/Timeline';
+import Menu from "../src/components/Menu";
+import { StyledTimeline } from "../src/components/Timeline";
 
 function HomePage() {
-    const estilosdaHomePage = {
-        //  backgroundColor: "red" 
+  const [valorDoFiltro, setValorDoFiltro] = React.useState('');
+
+  return (
+    <>
+      <CSSReset />
+      <div style={{
         display: "flex",
         flexDirection: "column",
         flex: 1,
-    }
-        ;
-    console.log(config.playlist);
-    return (
-        <>
-            <CSSReset />
-            <div style={estilosdaHomePage}>
-                <Menu />
-                <Header />
-                <Timeline playlists={config.playlist}></Timeline>
-            </div>
-        </>
-
-    );
+      }}>
+        <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
+        <Header />
+        <Timeline searchValue={valorDoFiltro} playlists={config.playlists}>
+          Conteúdo
+        </Timeline>
+      </div>
+    </>
+  );
 }
 
-export default HomePage;
+export default HomePage
 
-// function Menu() {
-//     return (
-//         <div>Menu</div>
-//     );
-// }
 const StyledHeader = styled.div`
-            img {
-                width: 80px;
-            height:80px;
-            border-radius:50%
-    
-}
-            .user-info {
-                margin-top: 50px;
-                display: flex;
-                align-items: center;
-                width:100%;
-                padding:16px 32px;
-                gap:16px;
-}`;
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  .user-info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 16px 32px;
+    gap: 16px;
+  }
+`;
+const StyledBanner = styled.div`
+  background-image: url(${({ src }) => src});
+  height: 230px;
+`;
 function Header() {
-    return (
-        <StyledHeader>
-            {/* <img src=""></img> */}
-            <section className="user-info">
-                <img src={`https://github.com/${config.github}.png`}></img>
-                <div>
-                    <h2>
-                        {config.name}
-
-                    </h2>
-                    <p>
-                        {config.job}
-
-                    </p>
-                </div>
-            </section>
-
-        </StyledHeader >
-    );
+  return (
+    <StyledHeader>
+      <StyledBanner src={config.banner} />
+      <section className="user-info">
+        <img src={`https://github.com/${config.github}.png`} />
+        <div>
+          <h2>
+            {config.name}
+          </h2>
+          <p>
+            {config.job}
+          </p>
+        </div>
+      </section>
+    </StyledHeader>
+  )
 }
-function Timeline(props) {
-    console.log(props);
-    const playlistNames = Object.keys(props.playlists);
+
+function Timeline({ searchValue, ...props }) {
+      const playlistNames = Object.keys(props.playlists);
     //Statement (por ex for)
     //Retorno por expressão (preferido pelo react)
-    return (
-        <StyledTimeline>
-            {playlistNames.map((playlistName) => {
-                const videos = props.playlists[playlistName];
-                return <section>
-                    <h2>{playlistName}</h2>
-                    <div>
-                        {videos.map((video) => {
-                            return (
-                                <a href={video.url}>
-                                    <img src={video.thumb}></img>
-                                    <span>
-                                        {video.title}
-                                    </span>
-                                </a>
-                            );
-                        })}
-                    </div>
-                </section>;
-            })}
-        </StyledTimeline>
-    );
+  return (
+    <StyledTimeline>
+      {playlistNames.map((playlistName) => {
+        const videos = props.playlists[playlistName];
+        return (
+          <section key={playlistName}>
+            <h2>{playlistName}</h2>
+            { <div>
+              {videos
+              .filter((video) => {
+                const titleNormalized = video.title.toLowerCase();
+                const seachValueNormalized = searchValue.toLowerCase();
+                return titleNormalized.includes(seachValueNormalized);
+              })
+              .map((video) => {
+                return (
+                  <a key={video.url} href={video.url}>
+                    <img src={video.thumb} />
+                    <span>
+                      {video.title}
+                    </span>
+                  </a>
+                )
+              })}
+            </div> }
+          </section>
+        )
+      })}
+    </StyledTimeline>
+  );
 }
