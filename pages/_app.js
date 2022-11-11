@@ -2,6 +2,7 @@ import { ThemeProvider } from 'styled-components';
 import { CSSReset } from "../src/components/CSSReset";
 import React from 'react';
 import ColorModeProvider, { ColorModeContext } from "../src/components/Menu/components/ColorMode";
+import RegisterVideo from '../src/components/RegisterVideo';
 const theme = {
     light: {
         backgroundBase: "#f9f9f9",
@@ -43,6 +44,7 @@ function MyApp({ Component, pageProps }) {
             <ThemeProvider theme={theme[contexto.mode]} >
                 <CSSReset />
                 <Component {...pageProps} />
+                <RegisterVideo/>
             </ThemeProvider>
 
     );
