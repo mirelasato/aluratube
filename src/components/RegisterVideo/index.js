@@ -10,5 +10,5 @@ export default function RegisterVideo() {
         <StyledRegisterVideo>
 
         </StyledRegisterVideo>
-    )
+    );
 }

@@ -41,18 +41,19 @@ function MyApp({ Component, pageProps }) {
     const contexto = React.useContext(ColorModeContext);
 
     return (
-            <ThemeProvider theme={theme[contexto.mode]} >
-                <CSSReset />
-                <Component {...pageProps} />
-                <RegisterVideo/>
-            </ThemeProvider>
+        <ThemeProvider theme={theme[contexto.mode]} >
+            <CSSReset />
+            <Component {...pageProps} />
+            <RegisterVideo />
+        </ThemeProvider>
 
     );
 }
-export default function _App(props){
+export default function _App(props) {
     return (
         <ProviderWrapper>
-            <MyApp {...props }/>
+            <MyApp {...props} />
         </ProviderWrapper>
-    )
+    );
 }
+

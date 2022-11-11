@@ -42,7 +42,7 @@ export default function DarkModeSwitch() {
   console.log('Console', contexto);
   return (
     <StyledSwitch>
-      <input id="darkmode" type="checkbox" onChange={() => {contexto.toggleMode();}} />
+      <input id="darkmode" type="checkbox" onChange={() => { contexto.toggleMode(); }} />
       <label
         htmlFor="darkmode"
         className="darkmode-switch"
