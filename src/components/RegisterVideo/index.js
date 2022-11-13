@@ -66,9 +66,14 @@ export default function RegisterVideo() {
 
                         }}>
                             <div>
-                                <button type="button" className="close-modal" onClick={() => setFormVisivel(false)}>X</button>
-                                <input placeholder="Titulo do video" name="titulo" value={formCadastro.values.titulo} onChange={formCadastro.handleChange} />
-                                <input placeholder="URL" name="url" value={formCadastro.values.url} onChange={formCadastro.handleChange} />
+                                <div>
+                                    <button type="button" className="close-modal" onClick={() => setFormVisivel(false)}>X</button>
+                                    <input placeholder="Titulo do video" name="titulo" value={formCadastro.values.titulo} onChange={formCadastro.handleChange} />
+                                    <input placeholder="URL" name="url" value={formCadastro.values.url} onChange={formCadastro.handleChange} />
+                                    <img src={getThumbnail(formCadastro.values.url)}></img>
+                                    <p>{formCadastro.values.titulo}</p>
+                                </div>
+
                                 <button type="submit">Cadastrar</button>
                             </div>
 

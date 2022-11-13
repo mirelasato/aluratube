@@ -35,28 +35,37 @@ export const StyledRegisterVideo = styled.div`
     color: inherit;
   }
   form {
-    width: 100%;
-    padding: 5%;
-    background-color: rgba(0,0,0,0.5);
     position: fixed;
+    z-index: 100;
     top: 0; bottom: 0;
     left: 0; right: 0;
-    z-index: 100;
-    display: flex;
     justify-content: center;
-    & > div {
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    padding: 5%;
+
+
+      & > div {
+        height: fit-content;
       flex: 1;
       border-radius: 8px;
       max-width: 320px;
       background-color: ${({ theme }) => theme.backgroundLevel2};
       display: flex;
-      flex-direction: column;
       position: relative;
       padding: 16px;
       padding-top: 40px;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: auto;
+
     }
+
   }
   input {
+    width: 100%;
+
     border-radius: 2px;
     border: 1px solid ${({ theme }) => theme.borderBase};
     padding: 8px 10px;
@@ -66,5 +75,12 @@ export const StyledRegisterVideo = styled.div`
     background-color: #f9f9f9;
     color: ${({ theme }) => theme.textColorBase};
     background-color: ${({ theme }) => theme.backgroundBase};
+  }
+  img {
+    margin-top:36px;
+    width: 100%;
+    margin-bottom:36px;
+
+
   }
 `;

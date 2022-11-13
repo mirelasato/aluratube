@@ -42,6 +42,8 @@ function HomePage() {
   );
 }
 
+//gaiko esteve aqui
+
 export default HomePage;
 
 const StyledHeader = styled.div`
