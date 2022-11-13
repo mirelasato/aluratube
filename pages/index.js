@@ -3,9 +3,27 @@ import styled from "styled-components";
 import config from "../config.json";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
+import { videoService } from '../src/services/videoService';
+
 
 function HomePage() {
+  const service = videoService();
   const [valorDoFiltro, setValorDoFiltro] = React.useState('');
+  const [playlists, setPlaylists] = React.useState("");
+
+  React.useEffect(() => {
+    console.log("useEffect");
+    service.getAllVideos().then((dados) => {
+      //Forma imutavel
+      const novasPLaylists = { ...playlists };
+      dados.data.forEach((video) => {
+        if (!novasPLaylists[video.playlist]) novasPLaylists[video.playlist] = [];
+        novasPLaylists[video.playlist].push(video);
+      });
+      setPlaylists(novasPLaylists);
+    });
+
+  }, []);
 
   return (
     <>
@@ -16,7 +34,7 @@ function HomePage() {
       }}>
         <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
         <Header />
-        <Timeline searchValue={valorDoFiltro} playlists={config.playlists}>
+        <Timeline searchValue={valorDoFiltro} playlists={playlists}>
           Conteúdo
         </Timeline>
       </div>
@@ -27,7 +45,7 @@ function HomePage() {
 export default HomePage;
 
 const StyledHeader = styled.div`
-background-color: ${({theme}) => theme.backgroundLevel1};
+background-color: ${({ theme }) => theme.backgroundLevel1};
   img {
     width: 80px;
     height: 80px;
@@ -61,13 +79,13 @@ function Header() {
         </div>
       </section>
     </StyledHeader>
-  )
+  );
 }
 
 function Timeline({ searchValue, ...props }) {
-      const playlistNames = Object.keys(props.playlists);
-    //Statement (por ex for)
-    //Retorno por expressão (preferido pelo react)
+  const playlistNames = Object.keys(props.playlists);
+  //Statement (por ex for)
+  //Retorno por expressão (preferido pelo react)
   return (
     <StyledTimeline>
       {playlistNames.map((playlistName) => {
@@ -75,26 +93,26 @@ function Timeline({ searchValue, ...props }) {
         return (
           <section key={playlistName}>
             <h2>{playlistName}</h2>
-            { <div>
+            {<div>
               {videos
-              .filter((video) => {
-                const titleNormalized = video.title.toLowerCase();
-                const seachValueNormalized = searchValue.toLowerCase();
-                return titleNormalized.includes(seachValueNormalized);
-              })
-              .map((video) => {
-                return (
-                  <a key={video.url} href={video.url}>
-                    <img src={video.thumb} />
-                    <span>
-                      {video.title}
-                    </span>
-                  </a>
-                )
-              })}
-            </div> }
+                .filter((video) => {
+                  const titleNormalized = video.title.toLowerCase();
+                  const seachValueNormalized = searchValue.toLowerCase();
+                  return titleNormalized.includes(seachValueNormalized);
+                })
+                .map((video) => {
+                  return (
+                    <a key={video.url} href={video.url}>
+                      <img src={video.thumb} />
+                      <span>
+                        {video.title}
+                      </span>
+                    </a>
+                  );
+                })}
+            </div>}
           </section>
-        )
+        );
       })}
     </StyledTimeline>
   );
